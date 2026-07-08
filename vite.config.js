@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [
-    tailwindcss(), // <--- Add this for Tailwind v4
+    tailwindcss(),
     react(),
   ],
 })

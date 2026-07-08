@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Background from './components/Background';
-import Projects from './components/Projects'; // <--- 1. Add this import
+import Projects from './components/Projects';
 
-// CORRECTED IMPORT PATH BASED ON YOUR FILE TREE
-import { playDomainThemeTransition } from './lib/playDomainThemeTransition'; 
+// IMPORT FIX: Corrected relative path to go up one level (`../lib`)
+import { playDomainThemeTransition } from '../lib/playDomainThemeTransition';
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -40,7 +40,6 @@ function App() {
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       <main className="relative z-10">
         <Hero theme={theme} />
-          {/* 2. Add the new Projects component here */}
         <Projects theme={theme} />
       </main>
     </>
