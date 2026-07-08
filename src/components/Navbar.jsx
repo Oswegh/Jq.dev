@@ -2,9 +2,10 @@
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 
+// src/components/Navbar.jsx
 const links = [
   { title: "Projects", href: "#projects" },
-  { title: "About", href: "#about" },
+  { title: "About", href: "#about" }, // You can add this later!
   { title: "Contact", href: "#contact" },
 ];
 
@@ -44,6 +45,10 @@ export default function Navbar({ theme, toggleTheme }) {
               <li key={link.title}>
                 <a
                   href={link.href}
+  onClick={(e) => {
+    e.preventDefault();
+    document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" });
+  }}
                   className={`jetbrains-mono text-sm transition-all duration-300 opacity-70 hover:opacity-100 ${isDark ? 'text-white' : 'text-black'}`}
                 >
                   {link.title}

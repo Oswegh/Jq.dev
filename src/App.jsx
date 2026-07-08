@@ -4,6 +4,8 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Background from './components/Background';
 import Projects from './components/Projects';
+import Contact from './components/Contact'; // <-- Add this
+import About from './components/About'; 
 
 // IMPORT FIX: Corrected relative path to go up one level (`../lib`)
 import { playDomainThemeTransition } from '../lib/playDomainThemeTransition';
@@ -38,9 +40,11 @@ function App() {
     <>
       <Background theme={theme} />
       <Navbar theme={theme} toggleTheme={toggleTheme} />
-      <main className="relative z-10">
+       <main className="relative z-10">
         <Hero theme={theme} />
         <Projects theme={theme} />
+        <Contact theme={theme} /> {/* <-- Add this here */}
+        <About theme={theme} />   
       </main>
     </>
   );
