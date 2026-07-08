@@ -6,6 +6,7 @@ import Background from './components/Background';
 import Projects from './components/Projects';
 import Contact from './components/Contact'; // <-- Add this
 import About from './components/About'; 
+import BackToTop from './components/BackToTop';
 
 // IMPORT FIX: Corrected relative path to go up one level (`../lib`)
 import { playDomainThemeTransition } from '../lib/playDomainThemeTransition';
@@ -45,6 +46,7 @@ function App() {
         <Projects theme={theme} />
         <Contact theme={theme} /> {/* <-- Add this here */}
         <About theme={theme} />   
+        <BackToTop theme={theme} />
       </main>
     </>
   );
