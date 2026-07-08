@@ -1,0 +1,330 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&display=swap');
+
+/* ============================================
+   THEME VARIABLES
+   ============================================ */
+
+[data-theme="dark"] {
+  --bg: #00004c;
+  --bg-secondary: #19195d;
+  --bg-tertiary: #32326f;
+  --text: #ffffff;
+  --fg: #ffffff;
+  --fg-muted: #ccccdb;
+  --fg-faint: #7f7fa5;
+  --card-bg: rgba(255,255,255,.05);
+  --card-border: rgba(255,255,255,.10);
+  --skeleton-base: rgba(255, 255, 255, 0.06);
+  --skeleton-shine: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-secondary: #f5f5fa;
+  --bg-tertiary: #ececf5;
+  --text: #14142b;
+  --fg: #14142b;
+  --fg-muted: #4a4a68;
+  --fg-faint: #6f6f95;
+  --card-bg: rgba(0,0,76,.04);
+  --card-border: rgba(0,0,76,.10);
+  --skeleton-base: rgba(0, 0, 76, 0.06);
+  --skeleton-shine: rgba(0, 0, 76, 0.10);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 500;
+  background-color: #ffffff;
+  transition: background-color 500ms ease, color 500ms ease;
+}
+
+.dark body {
+  background-color: #00004c;
+}
+
+.jetbrains-mono {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 500;
+}
+
+/* ============================================
+   SMOOTH THEME TRANSITIONS
+   ============================================ */
+
+body.domain-transitioning *,
+body.domain-transitioning *::before,
+body.domain-transitioning *::after {
+  transition: none !important;
+}
+
+body:not(.domain-transitioning) *,
+body:not(.domain-transitioning) *::before,
+body:not(.domain-transitioning) *::after {
+  transition:
+    background-color 500ms ease,
+    color 500ms ease,
+    border-color 500ms ease,
+    fill 500ms ease,
+    stroke 500ms ease,
+    box-shadow 500ms ease;
+}
+
+/* ============================================
+   DOMAIN EXPANSION - CENTERED
+   ============================================ */
+
+.domain-expansion-root {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.domain-expansion-root.active {
+  opacity: 1;
+}
+
+.domain-expansion-root.exit {
+  opacity: 0;
+  transition: opacity 0.6s ease 0.15s;
+}
+
+.domain-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.domain-expansion-root.active .domain-backdrop {
+  opacity: 1;
+}
+
+.domain-sphere {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: 
+    width 0.75s cubic-bezier(0.22, 0.61, 0.36, 1),
+    height 0.75s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.3s ease;
+  will-change: width, height;
+}
+
+.domain-expansion-root.active .domain-sphere {
+  width: min(75vmin, 550px);
+  height: min(75vmin, 550px);
+}
+
+.domain-expansion-root.expand .domain-sphere {
+  width: 250vmax;
+  height: 250vmax;
+  border-radius: 50%;
+  transition: 
+    width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: none;
+}
+
+.domain-expansion-root.expand .domain-backdrop {
+  opacity: 0;
+  transition: opacity 0.3s ease 0.3s;
+}
+
+.domain-barrier {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border-radius: 50%;
+  border: 1.5px solid;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: 
+    width 0.75s cubic-bezier(0.22, 0.61, 0.36, 1),
+    height 0.75s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.4s ease;
+  opacity: 0;
+  box-shadow: 
+    0 0 20px 2px rgba(138, 43, 226, 0.08),
+    inset 0 0 20px 2px rgba(138, 43, 226, 0.04);
+}
+
+.domain-expansion-root.active .domain-barrier {
+  width: calc(min(75vmin, 550px) + 24px);
+  height: calc(min(75vmin, 550px) + 24px);
+  opacity: 1;
+}
+
+.domain-expansion-root.expand .domain-barrier {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.domain-content {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transform: scale(0.65);
+  transition: 
+    opacity 0.4s ease 0.15s,
+    transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s;
+}
+
+.domain-expansion-root.active .domain-content {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.domain-expansion-root.expand .domain-content {
+  opacity: 0;
+  transform: scale(1.1);
+  transition: 
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.domain-seal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.domain-text {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.55em;
+  text-indent: 0.55em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: 
+    opacity 0.45s ease 0.35s,
+    transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) 0.35s;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.domain-expansion-root.active .domain-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   BACKGROUND ANIMATIONS
+   ============================================ */
+
+@keyframes bg-breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.72; }
+}
+
+@keyframes bg-grid-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 24px 24px; }
+}
+
+@keyframes bg-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.bg-ambient-glow {
+  animation: bg-breathe 14s ease-in-out infinite, bg-fade-in 0.6s ease 0.5s both;
+}
+
+.bg-dot-grid {
+  animation: bg-grid-drift 90s linear infinite, bg-fade-in 0.6s ease 0.5s both;
+}
+
+.bg-noise {
+  opacity: 0.015;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  animation: bg-fade-in 0.8s ease 0.5s both;
+}
+
+.dark .bg-noise {
+  opacity: 0.02;
+}
+
+/* ============================================
+   HERO ENTRANCE
+   ============================================ */
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-enter {
+  animation: hero-enter 450ms ease-out both;
+}
+
+/* ============================================
+   SKELETON LOADING
+   ============================================ */
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base) 0%,
+    var(--skeleton-shine) 50%,
+    var(--skeleton-base) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  border-radius: 6px;
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .domain-expansion-root {
+    display: none;
+  }
+  
+  .bg-ambient-glow,
+  .bg-dot-grid,
+  .hero-enter,
+  .skeleton {
+    animation: none;
+  }
+}
