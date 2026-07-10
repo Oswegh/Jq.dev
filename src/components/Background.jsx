@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 export default function Background({ theme }) {
   const isDark = theme === "dark";
   
-  // Position state for the mouse spotlight
   const [mouse, setMouse] = useState({ x: -1000, y: -1000 });
 
   useEffect(() => {
@@ -17,65 +16,62 @@ export default function Background({ theme }) {
 
   return (
     <>
-      {/* 1. Base background color */}
+      {/* 1. Raw concrete base color for light mode */}
       <div 
         className="fixed inset-0 -z-20 transition-colors duration-700"
         style={{ 
           background: isDark
-            ? "#00004c" 
-            : "#f8f9fa" 
+            ? "#121212" 
+            : "#e5e5e5" 
         }} 
       />
 
-      {/* 2. The Ambient Glow shapes */}
+      {/* 2. Hard-edged brutalist geometric blocks */}
       <div className="fixed inset-0 -z-20 overflow-hidden pointer-events-none">
-        
-        {/* Shape 1: Top Left pool */}
         <div 
-          className={`absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full blur-[120px] transition-colors duration-1000 ${
-            isDark ? 'bg-blue-900/40' : 'bg-blue-100/60'
+          className={`absolute -top-40 -right-40 w-[500px] h-[600px] transition-colors duration-300 ${
+            isDark ? 'bg-[#1e1e1e]' : 'bg-[#d5d5d5]'
           }`}
         />
-
-        {/* Shape 2: Bottom Right pool */}
         <div 
-          className={`absolute -bottom-40 -right-40 w-[700px] h-[700px] rounded-full blur-[140px] transition-colors duration-1000 ${
-            isDark ? 'bg-blue-800/30' : 'bg-blue-100/50'
+          className={`absolute -bottom-40 -left-40 w-[400px] h-[400px] transform rotate-12 transition-colors duration-300 ${
+            isDark ? 'bg-[#1e1e1e]' : 'bg-[#d5d5d5]'
           }`}
         />
       </div>
 
-      {/* 3. Minimalist linear grid */}
+      {/* 3. Raw architectural grid */}
       <div 
-        className="fixed inset-0 -z-20 transition-opacity duration-700 pointer-events-none"
+        className="fixed inset-0 -z-20 transition-opacity duration-300 pointer-events-none"
         style={{
           backgroundImage: isDark
-            ? `linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-               linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)`
-            : `linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
-               linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px)`,
-          backgroundSize: "80px 80px",
+            ? `linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+               linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)`
+            : `linear-gradient(rgba(0,0,0,0.10) 1px, transparent 1px),
+               linear-gradient(90deg, rgba(0,0,0,0.10) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
           backgroundPosition: "center center",
         }}
       />
 
-      {/* 4. Angled overlay line */}
+      {/* 4. Heavy Concrete Grain Texture - LIGHT MODE BUMPED TO 0.35 */}
       <div 
-        className="fixed inset-0 -z-20 transition-opacity duration-700 pointer-events-none"
+        className="fixed inset-0 -z-20 pointer-events-none"
         style={{
-          background: isDark
-            ? `repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 1px, transparent 1px, transparent 30px)`
-            : `repeating-linear-gradient(45deg, rgba(0,0,0,0.01) 0px, rgba(0,0,0,0.01) 1px, transparent 1px, transparent 40px)`,
+          opacity: isDark ? 0.35 : 0.35, // Light mode grain is now much more visible
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundSize: "256px 256px",
+          mixBlendMode: isDark ? 'screen' : 'multiply',
         }}
       />
 
-      {/* 5. The Subtle Liquid Spotlight (Option 2) */}
+      {/* 5. Subtle Cursor Spotlight */}
       <div 
         className="fixed inset-0 z-0 pointer-events-none transition-all duration-200 ease-out"
         style={{
           background: `radial-gradient(circle at ${mouse.x}px ${mouse.y}px, ${
-            isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,76,0.10)'
-          } 0%, transparent 45%)`
+            isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.10)'
+          } 0%, transparent 60%)`
         }}
       />
     </>

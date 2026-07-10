@@ -1,161 +1,68 @@
 // src/components/Hero.jsx
+import PhotoCarousel from './PhotoCarousel';
+
 export default function Hero({ theme }) {
   const isDark = theme === "dark";
 
-  // Helper function to smoothly scroll to a section
-  const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
-    <section
-      id="home"
-      className="mx-auto flex min-h-screen max-w-7xl items-center px-8 pt-20 flex-col lg:flex-row"
-    >
-      {/* Left Side */}
-      <div className="flex-1 lg:pr-12">
-        <p className={`jetbrains-mono mb-5 text-sm uppercase tracking-[0.25em] ${isDark ? 'text-white/60' : 'text-black/50'}`}>
-          Available for Opportunities
-        </p>
-
-        <h1 className={`text-6xl font-bold leading-none md:text-7xl jetbrains-mono ${isDark ? 'text-white' : 'text-black'}`}>
+    <section id="home" className="relative mx-auto max-w-7xl px-8 pt-36 pb-16 w-full h-full flex flex-col justify-center">
+      
+      {/* Centered Text Section */}
+      <div className="flex flex-col items-center text-center w-full gap-2 mb-10 mt-10">
+        
+        <h1 className="text-[clamp(2rem,7vw,5.5rem)] leading-[0.85] tracking-tighter font-bold uppercase jetbrains-mono text-black dark:text-white whitespace-nowrap">
           Joshua Quilala
-          <br />
         </h1>
-
-        <p className={`mt-8 max-w-xl text-lg leading-8 jetbrains-mono ${isDark ? 'text-white' : 'text-black'}`}>
-          Computer Science student passionate about
-          embedded systems, machine learning,
-          and creating modern web applications with
-          thoughtful user experiences.
-        </p>
-
-        {/* BUTTONS WITH SMOOTH SCROLL ACTIONS */}
-        <div className="mt-10 flex gap-4">
-          {/* View Projects Button - Links to #projects */}
-          <button 
-            onClick={() => scrollTo('projects')}
-            className={`jetbrains-mono rounded-full px-7 py-3 transition-colors duration-200 cursor-pointer ${
-              isDark 
-                ? 'bg-white text-black hover:bg-[#EAEAEA]' 
-                : 'bg-gray-900 text-white hover:bg-gray-800'
-            }`}
-          >
-            View Projects
-          </button>
-
-          {/* Contact Button - Links to #contact */}
-          <button 
-            onClick={() => scrollTo('contact')}
-            className={`jetbrains-mono rounded-full border px-7 py-3 transition-colors duration-200 cursor-pointer ${
-              isDark 
-                ? 'border-white/20 text-white hover:bg-white/5' 
-                : 'border-gray-300 text-black hover:bg-gray-100'
-            }`}
-          >
-            Contact
-          </button>
-        </div>
-
-        {/* Mobile Card */}
-        <div className={`mt-12 w-full rounded-2xl p-8 transition-colors duration-300 lg:hidden ${
-          isDark 
-            ? 'bg-[#19195d] border border-white/10' 
-            : 'bg-[#f5f5fa] border border-gray-200'
-        }`}>
-          <p className={`jetbrains-mono text-sm ${isDark ? 'text-white/60' : 'text-black/50'}`}>
-            portfolio.status
+        
+        <div className="flex flex-row items-center justify-center gap-4 mt-1">
+          <p className={`text-base md:text-xl jetbrains-mono tracking-wide ${isDark ? 'text-gray-400' : 'text-black'}`}>
+            & this is my portfolio
           </p>
-
-          <div className="mt-8 space-y-6">
-            <div>
-              <p className={`jetbrains-mono text-xs ${isDark ? 'text-white/60' : 'text-black/40'}`}>
-                LOCATION
-              </p>
-              <p className={`mt-1 jetbrains-mono ${isDark ? 'text-white' : 'text-black'}`}>
-                Caloocan City, Philippines
-              </p>
-            </div>
-
-            <div>
-              <p className={`jetbrains-mono text-xs ${isDark ? 'text-white/60' : 'text-black/40'}`}>
-                EDUCATION
-              </p>
-              <p className={`mt-1 jetbrains-mono ${isDark ? 'text-white' : 'text-black'}`}>
-                EARIST · BS Computer Science
-              </p>
-            </div>
-
-            <div>
-              <p className={`jetbrains-mono text-xs ${isDark ? 'text-white/60' : 'text-black/40'}`}>
-                STACK
-              </p>
-              <p className={`mt-1 jetbrains-mono ${isDark ? 'text-white' : 'text-black'}`}>
-                React · Arduino · Python · Java
-              </p>
-            </div>
-
-            <div>
-              <p className={`jetbrains-mono text-xs ${isDark ? 'text-white/60' : 'text-black/40'}`}>
-                STATUS
-              </p>
-              <p className={`mt-1 jetbrains-mono ${isDark ? 'text-emerald-300' : 'text-emerald-600'}`}>
-                ● Available
-              </p>
-            </div>
-          </div>
+          
+          <svg 
+            width="28" 
+            height="28" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="1.5" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+            className={`transition-colors duration-300 translate-y-1 ${isDark ? 'text-white' : 'text-black'}`}
+          >
+            <path d="M6 6 L18 18 M18 18 L18 12 M18 18 L12 18" />
+          </svg>
         </div>
       </div>
 
-      {/* Desktop Card */}
-      <div className="hidden flex-1 justify-end lg:flex">
-        <div className={`w-[380px] rounded-2xl p-8 transition-colors duration-300 ${
-          isDark 
-            ? 'bg-[#19195d] border border-white/10' 
-            : 'bg-[#f5f5fa] border border-gray-200'
-        }`}>
-          <p className={`jetbrains-mono text-sm ${isDark ? 'text-white/60' : 'text-black/50'}`}>
-            portfolio.status
-          </p>
+      {/* Photo Carousel */}
+      <div className="mt-8 w-full">
+        <PhotoCarousel theme={theme} />
+      </div>
 
-          <div className="mt-8 space-y-6">
-            <div>
-              <p className={`jetbrains-mono text-xs ${isDark ? 'text-white/60' : 'text-black/40'}`}>
-                LOCATION
-              </p>
-              <p className={`mt-1 jetbrains-mono ${isDark ? 'text-white' : 'text-black'}`}>
-                Caloocan City, Philippines
-              </p>
-            </div>
-
-            <div>
-              <p className={`jetbrains-mono text-xs ${isDark ? 'text-white/60' : 'text-black/40'}`}>
-                EDUCATION
-              </p>
-              <p className={`mt-1 jetbrains-mono ${isDark ? 'text-white' : 'text-black'}`}>
-                EARIST · BS Computer Science
-              </p>
-            </div>
-
-            <div>
-              <p className={`jetbrains-mono text-xs ${isDark ? 'text-white/60' : 'text-black/40'}`}>
-                STACK
-              </p>
-              <p className={`mt-1 jetbrains-mono ${isDark ? 'text-white' : 'text-black'}`}>
-                React · Arduino · Python · Java
-              </p>
-            </div>
-
-            <div>
-              <p className={`jetbrains-mono text-xs ${isDark ? 'text-white/60' : 'text-black/40'}`}>
-                STATUS
-              </p>
-              <p className={`mt-1 jetbrains-mono ${isDark ? 'text-emerald-300' : 'text-emerald-600'}`}>
-                ● Available
-              </p>
-            </div>
-          </div>
-        </div>
+      {/* 👇 THE SUBTLE SWIPE INDICATOR 👇 */}
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-50 opacity-50 flex flex-col items-center gap-1 pointer-events-none">
+        <style>{`
+          @keyframes slide-pulse {
+            0% { transform: translateX(0px); opacity: 0.2; }
+            50% { transform: translateX(12px); opacity: 1; }
+            100% { transform: translateX(0px); opacity: 0.2; }
+          }
+          .swipe-arrow {
+            animation: slide-pulse 2.5s ease-in-out infinite;
+          }
+          .swipe-arrow:nth-child(2) {
+            animation-delay: 0.3s;
+          }
+        `}</style>
+        
+        {/* Two sharp, brutalist arrows */}
+        <svg className="swipe-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: isDark ? '#ffffff' : '#000000' }}>
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+        <svg className="swipe-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: isDark ? '#ffffff' : '#000000' }}>
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
       </div>
     </section>
   );

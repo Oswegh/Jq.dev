@@ -2,13 +2,11 @@
 import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Background from './components/Background';
+import About from './components/About';
 import Projects from './components/Projects';
-import Contact from './components/Contact'; // <-- Add this
-import About from './components/About'; 
-import BackToTop from './components/BackToTop';
-
-// IMPORT FIX: Corrected relative path to go up one level (`../lib`)
+import Contact from './components/Contact';
+import Background from './components/Background';
+import SwipeableLayout from './components/SwipeableLayout'; 
 import { playDomainThemeTransition } from '../lib/playDomainThemeTransition';
 
 function App() {
@@ -41,13 +39,14 @@ function App() {
     <>
       <Background theme={theme} />
       <Navbar theme={theme} toggleTheme={toggleTheme} />
-       <main className="relative z-10">
+      
+      {/* Swipeable Layout - Kept exactly as you wanted */}
+      <SwipeableLayout theme={theme}>
         <Hero theme={theme} />
+        <About theme={theme} />
         <Projects theme={theme} />
-        <Contact theme={theme} /> {/* <-- Add this here */}
-        <About theme={theme} />   
-        <BackToTop theme={theme} />
-      </main>
+        <Contact theme={theme} />
+      </SwipeableLayout>
     </>
   );
 }

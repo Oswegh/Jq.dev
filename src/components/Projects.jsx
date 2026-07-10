@@ -5,9 +5,9 @@ const projects = [
   {
     id: 1,
     title: "EcoBin",
-    description: "Smart waste segregation with real-time points and rewards. Developed an IoT-enabled smart bin using Arduino and WebSockets, allowing users to track their recycling habits and earn rewards for proper waste disposal.",
+    description: "Smart waste segregation with real-time points and rewards. Developed an IoT-enabled smart bin using Arduino and WebSockets, allowing users to track their recycling habits.",
     tech: ["React", "Node.js", "Express", "Arduino", "ESP32", "WebSockets", "Supabase", "TailwindCSS"],
-    image: "/project-iot.jpg", // You can replace this with a real image later
+    image: "/project-iot.jpg",
   },
   {
     id: 2,
@@ -29,8 +29,7 @@ export default function Projects({ theme }) {
   const isDark = theme === "dark";
 
   return (
-    <section id="projects" className="py-24 max-w-7xl mx-auto px-8">
-      {/* Section Heading */}
+    <section id="projects" className="py-24 max-w-7xl mx-auto px-8 h-full flex flex-col justify-center">
       <div className="mb-12">
         <h2 className={`text-3xl font-bold jetbrains-mono ${isDark ? 'text-white' : 'text-black'}`}>
           Featured Projects
@@ -40,20 +39,18 @@ export default function Projects({ theme }) {
         </p>
       </div>
 
-      {/* Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project) => (
           <article 
             key={project.id} 
-            className={`group rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+            className={`group rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col ${
               isDark 
-                ? 'bg-[#19195d] border border-white/10 hover:border-white/20' 
-                : 'bg-[#f5f5fa] border border-gray-200 hover:border-gray-300'
+                ? 'bg-[#252525] border border-white/10 hover:border-white/30' 
+                : 'bg-[#f0f0f0] border border-gray-300 hover:border-gray-400'
             }`}
           >
-            {/* Project Image */}
-            <div className="aspect-video w-full bg-black/5 dark:bg-white/5">
-              {/* If you don't have real images yet, this div acts as a placeholder */}
+            {/* Empty placeholder instead of "Image unavailable" text */}
+            <div className="aspect-video w-full bg-black/10 dark:bg-white/5 relative">
               <LazyImage 
                 src={project.image} 
                 alt={project.title} 
@@ -62,9 +59,7 @@ export default function Projects({ theme }) {
               />
             </div>
 
-            {/* Project Content */}
-            <div className="p-6">
-              {/* Tech Tags */}
+            <div className="p-6 flex flex-col flex-grow">
               <div className="flex flex-wrap gap-2 mb-3">
                 {project.tech.map((tech) => (
                   <span 
@@ -80,11 +75,10 @@ export default function Projects({ theme }) {
                 ))}
               </div>
 
-              {/* Title & Description with "Impact Metric" */}
               <h3 className={`text-lg font-bold jetbrains-mono mb-2 ${isDark ? 'text-white' : 'text-black'}`}>
                 {project.title}
               </h3>
-              <p className={`text-sm leading-relaxed jetbrains-mono ${isDark ? 'text-white/70' : 'text-black/70'}`}>
+              <p className={`text-sm leading-relaxed jetbrains-mono flex-grow ${isDark ? 'text-white/70' : 'text-black/70'}`}>
                 {project.description}
               </p>
             </div>
